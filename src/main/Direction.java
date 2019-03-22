@@ -1,5 +1,5 @@
 package main;
 
-public enum Surface {
+public enum Direction {
 	LEFT, TOP, RIGHT, BOTTOM, NONE
 }

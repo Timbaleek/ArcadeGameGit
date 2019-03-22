@@ -24,6 +24,7 @@ public class World {
 	PlayerGameEntity p;
 	public void update() {
 		p = Main.p;
+	// Map Collision
 		if(p.pos.x+p.vel.x<Main.xCor){
 			p.vel.setX(0);
 			p.pos.x = Main.xCor;
@@ -41,38 +42,20 @@ public class World {
 		}
 		
 		for(AnimatedPhysicsGameEntity a:animatedPhysicsEntities){
-			a.updateState(true);
-			//Collision.resolveCollision(Main.p, a, Collision.detectCollision(Main.p, a));
-			Surface surface = Collision.aCollision(Main.p, a);
-			if(surface == Surface.TOP){
+			a.updateState(Direction.RIGHT);
+			Direction surface = Collision.aCollision(Main.p, a);
+			if(surface == Direction.TOP){
 				Main.p.vel.x /= a.friction;
 				Main.p.grounded = true;
 			}
 		}
 		for(AnimatedGameEntity a:animatedGameEntities){
-			a.updateState(true);
+			a.updateState(Direction.RIGHT);
 		}
 		
 		for(TexturedPhysicsGameEntity tp:texturedPhysicsEntities){
-//			if(Main.p.detectCollision(tp)){
-//				Main.p.doCollision(tp);
-//			}
+			
 		}
-//		for(AnimatedPhysicsGameEntity ap:animatedPhysicsEntities){
-//			if(ap.detectXCollision(Main.p)){
-//				if(ap.detectYCollision(Main.p)){
-//				Main.p.setVelX(0);
-//				}
-//			} if(ap.detectYCollision(Main.p)){
-//				if(ap.detectXCollision(Main.p)){
-//				Main.p.setVelY(0);
-//				}
-//			}
-//			else{
-//				System.out.println("nocoll");
-//			}
-//		}
-		
 	}
 	
 	public void render() {

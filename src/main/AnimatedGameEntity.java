@@ -35,10 +35,16 @@ public class AnimatedGameEntity extends TexturedGameEntity{
 	    GL11.glEnd();
 	}
 	
-	public void updateState(boolean running){
-		if(running){
+	public void updateState(Direction direction){
+		if(direction == Direction.RIGHT){
 			if(Main.getTime() - lastTime >secPerState){
 				state ++;
+			    state%=8;
+			    lastTime = Main.getTime();
+			}
+		} else if (direction == Direction.LEFT){
+			if(Main.getTime() - lastTime >secPerState){
+				state --;
 			    state%=8;
 			    lastTime = Main.getTime();
 			}

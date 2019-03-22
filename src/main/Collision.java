@@ -14,7 +14,7 @@ public class Collision {
 		return false;
 	}
 	
-	public static Surface aCollision(AnimatedPhysicsGameEntity g1, GameEntity g2){ //left 0, top 1, right 2, bottom 3
+	public static Direction aCollision(AnimatedPhysicsGameEntity g1, GameEntity g2){ //left 0, top 1, right 2, bottom 3
 		Vector2f timeToCollide = new Vector2f(0,0);
 		if(detectCollision(g1, g2)){
 			if(g1.vel.x > 0){
@@ -25,22 +25,22 @@ public class Collision {
 					if(timeToCollide.x<timeToCollide.y){
 						g1.pos.x = g2.pos.x - g1.size.x;
 						g1.vel.x = 0;
-						return Surface.LEFT;
+						return Direction.LEFT;
 					} else {
 						g1.pos.y = g2.pos.y - g1.size.y;
 						g1.vel.y = 0;
-						return Surface.TOP;
+						return Direction.TOP;
 					}
 				} else{
 					timeToCollide.y = (g1.pos.y - (g2.pos.y + g2.size.y))/g1.vel.y;
 					if(timeToCollide.x<timeToCollide.y){
 						g1.pos.x = g2.pos.x - g1.size.x;
 						g1.vel.x = 0;
-						return Surface.LEFT;
+						return Direction.LEFT;
 					} else {
 						g1.pos.y = g2.pos.y + g2.size.y;
 						g1.vel.y = 0;
-						return Surface.BOTTOM;
+						return Direction.BOTTOM;
 					}
 				}
 			} else {
@@ -50,27 +50,27 @@ public class Collision {
 					if(timeToCollide.x<timeToCollide.y){
 						g1.pos.x = g2.pos.x + g2.size.x;
 						g1.vel.x = 0;
-						return Surface.RIGHT;
+						return Direction.RIGHT;
 					} else {
 						g1.pos.y = g2.pos.y - g1.size.y;
 						g1.vel.y = 0;
-						return Surface.TOP;
+						return Direction.TOP;
 					}
 				} else{
 					timeToCollide.y = (g2.pos.y - (g1.pos.y+g1.size.y))/g1.vel.y;
 					if(timeToCollide.x<timeToCollide.y){
 						g1.pos.x = g2.pos.x + g2.size.x;
 						g1.vel.x = 0;
-						return Surface.RIGHT;
+						return Direction.RIGHT;
 					} else {
 						g1.pos.y = g2.pos.y + g2.size.y;
 						g1.vel.y = 0;
-						return Surface.BOTTOM;
+						return Direction.BOTTOM;
 					}
 				}
 			}
 		}
-		return Surface.NONE;
+		return Direction.NONE;
 	}
 	
 //	public static void collisionResponse(AnimatedPhysicsGameEntity g1, GameEntity g2){
