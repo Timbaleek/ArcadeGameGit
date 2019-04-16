@@ -9,5 +9,10 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/Tim/Documents/Java/LWJGL2/lwjgl-2.9.3/lwjgl-2.9.3/jar/lwjgl_util.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Tim/Documents/Java/Slick/slick-util.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tim/Documents/Java/Arduino/lib/RXTXcomm.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/Tim/Documents/Java/Arduino"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -3,16 +3,18 @@ package main;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import org.lwjgl.util.vector.Vector2f;
 
 public class World {
 	
-	TexturedGameEntity[] texturedGameEntities;
-	AnimatedGameEntity[] animatedGameEntities;
-	TexturedPhysicsGameEntity[] texturedPhysicsEntities;
-	AnimatedPhysicsGameEntity[] animatedPhysicsEntities;
+	List<TexturedGameEntity> texturedGameEntities = new ArrayList<TexturedGameEntity>();
+	List<AnimatedGameEntity> animatedGameEntities = new ArrayList<AnimatedGameEntity>();
+	List<TexturedPhysicsGameEntity> texturedPhysicsEntities = new ArrayList<TexturedPhysicsGameEntity>();
+	List<AnimatedPhysicsGameEntity> animatedPhysicsEntities = new ArrayList<AnimatedPhysicsGameEntity>();
 	public int levelWidth, groundHeight;
 	private static TexturedGameEntity background;
 	float frictionGround = 1.005f;
@@ -84,53 +86,48 @@ public class World {
 		}
 		System.out.println("Reading World: " + worldNumber);
 		//read line by line
-		int t = 0, a = 0, tp = 0, ap = 0;
 		while(scanner.hasNextLine()){
 		    //process each line
 		    String line = scanner.nextLine();
 		    String[]object = line.split(",");
 		    switch (object[0]) {
 		    case "init":
-		    	texturedGameEntities = new TexturedGameEntity[Integer.parseInt(object[1])];
-		    	animatedGameEntities = new AnimatedGameEntity[Integer.parseInt(object[2])];
-		    	texturedPhysicsEntities = new TexturedPhysicsGameEntity[Integer.parseInt(object[3])];
-		    	animatedPhysicsEntities = new AnimatedPhysicsGameEntity[Integer.parseInt(object[4])];
+//		    	texturedGameEntities = new TexturedGameEntity[Integer.parseInt(object[1])];
+//		    	animatedGameEntities = new AnimatedGameEntity[Integer.parseInt(object[2])];
+//		    	texturedPhysicsEntities = new TexturedPhysicsGameEntity[Integer.parseInt(object[3])];
+//		    	animatedPhysicsEntities = new AnimatedPhysicsGameEntity[Integer.parseInt(object[4])];
 				background = new TexturedGameEntity(new Vector2f(0,0), new Vector2f(levelWidth, Main.screenHeight), "world"+worldNumber+"/background");
 		    	break;
 		    case "settings":
 		    	levelWidth = Integer.parseInt(object[1]);
-		    	groundHeight = Integer.parseInt(object[2]);
+		    	//groundHeight = Integer.parseInt(object[2]);
 		    	break;
 			case "textured":
-				texturedGameEntities[t] = new TexturedGameEntity(new Vector2f(Integer.parseInt(object[1]),Integer.parseInt(object[2])), //pos
+				texturedGameEntities.add(new TexturedGameEntity(new Vector2f(Integer.parseInt(object[1]),Integer.parseInt(object[2])), //pos
 						new Vector2f(Integer.parseInt(object[3]), Integer.parseInt(object[4])), //size
-						"world"+worldNumber+"/"+object[6]); //path
-			    t++;
+						"world"+worldNumber+"/"+object[6])); //path
 				break;
 			case "animated":
-				animatedGameEntities[a] = new AnimatedGameEntity(new Vector2f(Integer.parseInt(object[1]),Integer.parseInt(object[2])),
+				animatedGameEntities.add(new AnimatedGameEntity(new Vector2f(Integer.parseInt(object[1]),Integer.parseInt(object[2])),
 						new Vector2f(Integer.parseInt(object[3]), Integer.parseInt(object[4])),
 						"world"+worldNumber+"/"+object[6],
-						Integer.parseInt(object[7]), Integer.parseInt(object[8]), Float.parseFloat(object[9])); //animation
-				a++;
+						Integer.parseInt(object[7]), Integer.parseInt(object[8]), Float.parseFloat(object[9]))); //animation
 				break;
 			case "texturedphysics":
-				texturedPhysicsEntities[tp] = new TexturedPhysicsGameEntity(new Vector2f(Integer.parseInt(object[1]),Integer.parseInt(object[2])),
+				texturedPhysicsEntities.add(new TexturedPhysicsGameEntity(new Vector2f(Integer.parseInt(object[1]),Integer.parseInt(object[2])),
 						new Vector2f(Integer.parseInt(object[3]), Integer.parseInt(object[4])),
 						"world"+worldNumber+"/"+object[6],
 						new Vector2f(Float.parseFloat(object[7]), Float.parseFloat(object[8])),
-						new Vector2f(Float.parseFloat(object[9]), Float.parseFloat(object[10]))); //
-				tp++;
+						new Vector2f(Float.parseFloat(object[9]), Float.parseFloat(object[10])))); //
 				break;
 			case "animatedphsyics":
-				animatedPhysicsEntities[ap] = new AnimatedPhysicsGameEntity(new Vector2f(Integer.parseInt(object[1]),Integer.parseInt(object[2])),
+				animatedPhysicsEntities.add(new AnimatedPhysicsGameEntity(new Vector2f(Integer.parseInt(object[1]),Integer.parseInt(object[2])),
 						new Vector2f(Integer.parseInt(object[3]), Integer.parseInt(object[4])),
 						"world"+worldNumber+"/"+object[6],
 						Integer.parseInt(object[7]), Integer.parseInt(object[8]), Float.parseFloat(object[9]),
 						new Vector2f(Float.parseFloat(object[10]), Float.parseFloat(object[11])),
 						new Vector2f(Float.parseFloat(object[12]), Float.parseFloat(object[13])),
-						Float.parseFloat(object[14]));
-				ap++;
+						Float.parseFloat(object[14])));
 				break;
 			default:
 				System.out.println("Error reading file");

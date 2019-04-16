@@ -1,6 +1,6 @@
-settings,10000,300
-init,2,1,0,1
-textured,0,780,10000,1080,0,ground
-animated,170,300,300,100,30,anim,0,8,0.3
-animatedphsyics,1400,250,500,300,10,anim,4,8,0.6,0,0,0,0,1.01,15,0.5
-textured,200,10,500,200,180,ground
+settings,10000
+init,
+textured,219,764,10000,1080,0,ground
+textured,1613,452,500,200,0,ground
+animated,1277,639,300,100,0,anim,2,0,1.0
+animatedphsyics,2170,291,500,300,0,anim,3,0,1.0,0,0,0,0,1

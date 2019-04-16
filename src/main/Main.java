@@ -5,6 +5,8 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
+
+import arduinoCom.ArduinoCommunication;
 public class Main {
 
 	final static int screenWidth = 1920;
@@ -15,6 +17,13 @@ public class Main {
 	public static PlayerGameEntity p;
 	
 	public static void main(String[] args) {
+		//Initialize Communication with Arduino
+		try {
+			ArduinoCommunication.arduinoListen();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		//Initialize LWJGL
 		try {
 			Display.setDisplayMode(new DisplayMode(screenWidth, screenHeight));
 			Display.create();
@@ -30,7 +39,6 @@ public class Main {
 		GL11.glLoadIdentity();
 		GL11.glOrtho(0, screenWidth, screenHeight, 0, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
-		//GL11.glScalef(0.5f, 0.5f, 1);
 		init();
 		
 		while (!Display.isCloseRequested()) {
