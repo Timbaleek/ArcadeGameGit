@@ -3,6 +3,8 @@ package main;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector2f;
 
+import arduinoCom.ArduinoCommunication;
+
 public class PlayerGameEntity extends AnimatedPhysicsGameEntity{
 
 	boolean canJump, grounded;
@@ -29,8 +31,19 @@ public class PlayerGameEntity extends AnimatedPhysicsGameEntity{
 		} else if (Keyboard.isKeyDown(Keyboard.KEY_D)){
 			Vector2f.add(vel,new Vector2f(0.01f,0),vel);
 			isWalking = Direction.RIGHT;
-		} else {
-			isWalking = Direction.NONE;
+		} //else {
+//			isWalking = Direction.NONE;
+//		}
+		int c = ArduinoCommunication.currentInput;
+		//System.out.println(c);
+		if(c == 0){
+			System.out.println("Walk LEFT");
+			Vector2f.add(vel,new Vector2f(-0.01f,0),vel);
+			isWalking = Direction.LEFT;
+		} else if (c == 1){
+			System.out.println("Walk RIGHT");
+			Vector2f.add(vel,new Vector2f(0.01f,0),vel);
+			isWalking = Direction.RIGHT;
 		}
 	}
 
