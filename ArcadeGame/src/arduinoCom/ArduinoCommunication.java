@@ -10,15 +10,13 @@ import java.util.Enumeration;
 
 
 public class ArduinoCommunication implements SerialPortEventListener {
-	public static int currentInput;
-	public static boolean end;
 	SerialPort serialPort;
 	/** The port we're normally going to use. */
 	private static final String PORT_NAMES[] = { 
 			"/dev/tty.usbserial-A9007UX1", // Mac OS X
 			"/dev/ttyACM0", // Raspberry Pi
 			"/dev/ttyUSB0", // Linux
-			"COM4", // Windows
+			"COM5", // Windows
 	};
 	/**
 	 * A BufferedReader which will be fed by a InputStreamReader 
@@ -90,20 +88,14 @@ public class ArduinoCommunication implements SerialPortEventListener {
 		}
 	}
 
-
-	
 	/**
 	 * Handle an event on the serial port. Read the data and print it.
 	 */
 	public synchronized void serialEvent(SerialPortEvent oEvent) {
 		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
-			//System.out.println("DATA");
 			try {
-				while(input.ready()){
 				String inputLine=input.readLine();
-				currentInput = Integer.parseInt(inputLine);
 				System.out.println(inputLine);
-				}
 			} catch (Exception e) {
 				System.err.println(e.toString());
 			}
@@ -112,19 +104,16 @@ public class ArduinoCommunication implements SerialPortEventListener {
 	}
 
 	public static void arduinoListen() throws Exception {
-		ArduinoCommunication ac = new ArduinoCommunication();
-		ac.initialize();
+		ArduinoCommunication main = new ArduinoCommunication();
+		main.initialize();
 		Thread t=new Thread() {
 			public void run() {
-				//the following line will keep this app alive for 10 seconds,
+				//the following line will keep this app alive for 1000 seconds,
 				//waiting for events to occur and responding to them (printing incoming messages to console).
-				try {Thread.sleep(10000);} catch (InterruptedException ie) {}
+				try {Thread.sleep(1000000);} catch (InterruptedException ie) {}
 			}
 		};
 		t.start();
-		System.out.println("Communication Started");
-		if(end){
-			ac.close();
-		}
+		System.out.println("Started");
 	}
 }

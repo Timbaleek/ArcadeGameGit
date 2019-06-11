@@ -3,8 +3,6 @@ package main;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector2f;
 
-import arduinoCom.ArduinoCommunication;
-
 public class PlayerGameEntity extends AnimatedPhysicsGameEntity{
 
 	boolean canJump, grounded;
@@ -21,6 +19,7 @@ public class PlayerGameEntity extends AnimatedPhysicsGameEntity{
 	}
 
 	public void updateInput(){
+<<<<<<< HEAD:ArcadeGame/src/main/PlayerGameEntity.java
 //		if ((Keyboard.isKeyDown(Keyboard.KEY_W)||Keyboard.isKeyDown(Keyboard.KEY_SPACE))&&grounded) {
 //			vel.setY(-jumpForce);
 //			canJump = false;
@@ -45,6 +44,21 @@ public class PlayerGameEntity extends AnimatedPhysicsGameEntity{
 //			Vector2f.add(vel,new Vector2f(0.01f,0),vel);
 //			isWalking = Direction.RIGHT;
 //		}
+=======
+		if ((Keyboard.isKeyDown(Keyboard.KEY_W)||Keyboard.isKeyDown(Keyboard.KEY_SPACE))&&grounded) {
+			vel.setY(-jumpForce);
+			canJump = false;
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_A)){
+			Vector2f.add(vel,new Vector2f(-0.01f,0),vel);
+			isWalking = Direction.LEFT;
+		} else if (Keyboard.isKeyDown(Keyboard.KEY_D)){
+			Vector2f.add(vel,new Vector2f(0.01f,0),vel);
+			isWalking = Direction.RIGHT;
+		} else {
+			isWalking = Direction.NONE;
+		}
+>>>>>>> parent of 9b8ae37... Lag fixed:src/main/PlayerGameEntity.java
 	}
 
 	public void update(){

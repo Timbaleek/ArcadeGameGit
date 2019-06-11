@@ -52,7 +52,7 @@ public class Main {
 		}
 	 
 		Display.destroy();
-		ArduinoCommunication.end = true;
+	    
 	}
 	
 	public static float xCor;
