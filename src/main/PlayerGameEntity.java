@@ -3,6 +3,8 @@ package main;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector2f;
 
+import arduinoCom.ArduinoCommunication;
+
 public class PlayerGameEntity extends AnimatedPhysicsGameEntity{
 
 	boolean canJump, grounded;
@@ -32,30 +34,37 @@ public class PlayerGameEntity extends AnimatedPhysicsGameEntity{
 //		} //else {
 //			isWalking = Direction.NONE;
 //		}
-//		int c = ArduinoCommunication.currentInput;
-//		//System.out.println(c);
-//		if(c == 0){
-//			System.out.println("Walk LEFT");
-//			Vector2f.add(vel,new Vector2f(-0.01f,0),vel);
-//			isWalking = Direction.LEFT;
-//		} else if (c == 1){
-//			System.out.println("Walk RIGHT");
-//			Vector2f.add(vel,new Vector2f(0.01f,0),vel);
-//			isWalking = Direction.RIGHT;
-//		}
-		if ((Keyboard.isKeyDown(Keyboard.KEY_W)||Keyboard.isKeyDown(Keyboard.KEY_SPACE))&&grounded) {
+		String cs = ArduinoCommunication.currentInput;
+		//System.out.println(cs);
+		//System.out.println(Character.getNumericValue(cs.charAt(0)));
+		if(Character.getNumericValue(cs.charAt(0)) == 1){
+			System.out.println("Walk LEFT");
+			Vector2f.add(vel,new Vector2f(-0.01f,0),vel);
+			isWalking = Direction.LEFT;
+		} 
+		if (Character.getNumericValue(cs.charAt(1)) == 1){
+			System.out.println("Walk RIGHT");
+			Vector2f.add(vel,new Vector2f(0.01f,0),vel);
+			isWalking = Direction.RIGHT;
+		} 
+		if (Character.getNumericValue(cs.charAt(2)) == 0&&grounded) {
+			System.out.println("JUMP");
 			vel.setY(-jumpForce);
 			canJump = false;
 		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_A)){
-			Vector2f.add(vel,new Vector2f(-0.01f,0),vel);
-			isWalking = Direction.LEFT;
-		} else if (Keyboard.isKeyDown(Keyboard.KEY_D)){
-			Vector2f.add(vel,new Vector2f(0.01f,0),vel);
-			isWalking = Direction.RIGHT;
-		} else {
-			isWalking = Direction.NONE;
-		}
+//		if ((Keyboard.isKeyDown(Keyboard.KEY_W)||Keyboard.isKeyDown(Keyboard.KEY_SPACE))&&grounded) {
+//			vel.setY(-jumpForce);
+//			canJump = false;
+//		}
+//		if (Keyboard.isKeyDown(Keyboard.KEY_A)){
+//			Vector2f.add(vel,new Vector2f(-0.01f,0),vel);
+//			isWalking = Direction.LEFT;
+//		} else if (Keyboard.isKeyDown(Keyboard.KEY_D)){
+//			Vector2f.add(vel,new Vector2f(0.01f,0),vel);
+//			isWalking = Direction.RIGHT;
+//		} else {
+//			isWalking = Direction.NONE;
+//		}
 	}
 
 	public void update(){

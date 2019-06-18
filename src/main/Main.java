@@ -74,6 +74,7 @@ public class Main {
 		
 		p.updateMovement();
 		p.update();
+		
 	}
 
 	private static void render() {

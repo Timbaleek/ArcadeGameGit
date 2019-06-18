@@ -17,6 +17,7 @@ public class World {
 	List<AnimatedPhysicsGameEntity> animatedPhysicsEntities = new ArrayList<AnimatedPhysicsGameEntity>();
 	public int levelWidth, groundHeight;
 	private static TexturedGameEntity background;
+	//private static TexturedGameEntity[] background = new TexturedGameEntity[8];
 	private static Line ground;
 	float frictionGround = 1.005f;
 	
@@ -59,10 +60,27 @@ public class World {
 		for(TexturedPhysicsGameEntity tp:texturedPhysicsEntities){
 			
 		}
+		//updateBackground();
 	}
+	
+//	float leftEdge = 0, rightEdge = Main.screenWidth;
+//	public void updateBackground(){
+//		for(TexturedGameEntity b:background){
+//			if(p.pos.x - (b.pos.x+b.size.x)>Main.screenWidth){
+//				b.pos.x = rightEdge;
+//				rightEdge += b.size.x;
+//			} else if(b.pos.x -p.pos.x<Main.screenWidth){
+//				b.pos.x = leftEdge - b.size.x;
+//				leftEdge -= b.size.x;
+//			}
+//		}
+//	}
 	
 	public void render() {
 		background.render();
+//		for(TexturedGameEntity b:background){
+//			b.render();
+//		}
 		for(TexturedGameEntity t:texturedGameEntities){
 			t.render();
 		}
@@ -89,22 +107,30 @@ public class World {
 		System.out.println("Reading World: " + worldNumber);
 		//read line by line
 		while(scanner.hasNextLine()){
-		    //process each line
-		    String line = scanner.nextLine();
-		    String[]object = line.split(",");
-		    switch (object[0]) {
-		    case "init":
-//		    	texturedGameEntities = new TexturedGameEntity[Integer.parseInt(object[1])];
-//		    	animatedGameEntities = new AnimatedGameEntity[Integer.parseInt(object[2])];
-//		    	texturedPhysicsEntities = new TexturedPhysicsGameEntity[Integer.parseInt(object[3])];
-//		    	animatedPhysicsEntities = new AnimatedPhysicsGameEntity[Integer.parseInt(object[4])];
-		    	ground = new Line(new Vector2f(0,0),new Vector2f(levelWidth, Main.screenHeight));
-				background = new TexturedGameEntity(new Vector2f(0,0), new Vector2f(levelWidth, Main.screenHeight*2), "world"+worldNumber+"/background");
-		    	break;
-		    case "settings":
-		    	levelWidth = Integer.parseInt(object[1]);
-		    	//groundHeight = Integer.parseInt(object[2]);
-		    	break;
+			//process each line
+			String line = scanner.nextLine();
+			String[]object = line.split(",");
+			switch (object[0]) {
+			case "init":
+//				texturedGameEntities = new TexturedGameEntity[Integer.parseInt(object[1])];
+//				animatedGameEntities = new AnimatedGameEntity[Integer.parseInt(object[2])];
+//				texturedPhysicsEntities = new TexturedPhysicsGameEntity[Integer.parseInt(object[3])];
+//				animatedPhysicsEntities = new AnimatedPhysicsGameEntity[Integer.parseInt(object[4])];
+				ground = new Line(new Vector2f(0,0),new Vector2f(levelWidth, Main.screenHeight));
+				background = new TexturedGameEntity(new Vector2f(0,0), new Vector2f(levelWidth, Main.screenHeight*2), "world"+worldNumber+"/background");///background");
+//				for(int i = 0; i < background.length; i++){
+//					if(i < 4){
+//						background[i] = new TexturedGameEntity(new Vector2f(i*(Main.screenWidth/4),0), new Vector2f(Main.screenHeight/2, Main.screenHeight/2), "anim");
+//					} else {
+//						background[i] = new TexturedGameEntity(new Vector2f((i-4)*(Main.screenWidth/4),Main.screenHeight/2), new Vector2f(Main.screenHeight/2, Main.screenHeight/2), "anim");
+//					}
+//					
+//				};
+				break;
+			case "settings":
+				levelWidth = Integer.parseInt(object[1]);
+				//groundHeight = Integer.parseInt(object[2]);
+				break;
 			case "textured":
 				texturedGameEntities.add(new TexturedGameEntity(new Vector2f(Integer.parseInt(object[1]),Integer.parseInt(object[2])), //pos
 						new Vector2f(Integer.parseInt(object[3]), Integer.parseInt(object[4])), //size
@@ -136,7 +162,7 @@ public class World {
 				System.out.println("Error reading file");
 				break;
 			}
-		    System.out.println(line);
+			System.out.println(line);
 		}
 		scanner.close();
 	}

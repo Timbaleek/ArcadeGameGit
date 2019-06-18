@@ -11,6 +11,7 @@ import java.util.Enumeration;
 
 public class ArduinoCommunication implements SerialPortEventListener {
 	SerialPort serialPort;
+	public static String currentInput = "000";
 	/** The port we're normally going to use. */
 	private static final String PORT_NAMES[] = { 
 			"/dev/tty.usbserial-A9007UX1", // Mac OS X
@@ -29,7 +30,7 @@ public class ArduinoCommunication implements SerialPortEventListener {
 	/** Milliseconds to block while waiting for port open */
 	private static final int TIME_OUT = 2000;
 	/** Default bits per second for COM port. */
-	private static final int DATA_RATE = 9600;
+	private static final int DATA_RATE = 115200;
 
 	public void initialize() {
 		// the next line is for Raspberry Pi and 
@@ -95,6 +96,7 @@ public class ArduinoCommunication implements SerialPortEventListener {
 		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 			try {
 				String inputLine=input.readLine();
+				currentInput = inputLine;
 				System.out.println(inputLine);
 			} catch (Exception e) {
 				System.err.println(e.toString());
