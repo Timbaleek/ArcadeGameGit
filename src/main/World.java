@@ -15,11 +15,12 @@ public class World {
 	List<AnimatedGameEntity> animatedGameEntities = new ArrayList<AnimatedGameEntity>();
 	List<TexturedPhysicsGameEntity> texturedPhysicsEntities = new ArrayList<TexturedPhysicsGameEntity>();
 	List<AnimatedPhysicsGameEntity> animatedPhysicsEntities = new ArrayList<AnimatedPhysicsGameEntity>();
-	public int levelWidth, groundHeight;
+	List<Trigger> triggers = new ArrayList<Trigger>();
+	public int levelWidth, groundHeight = -50;
 	private static TexturedGameEntity background;
 	//private static TexturedGameEntity[] background = new TexturedGameEntity[8];
 	private static Line ground;
-	float frictionGround = 1.005f;
+	float frictionGround = 1.02f;
 	
 	public World(int worldNumber){
 		readWorld(worldNumber);
@@ -57,8 +58,11 @@ public class World {
 			a.updateState(Direction.RIGHT);
 		}
 		
-		for(TexturedPhysicsGameEntity tp:texturedPhysicsEntities){
-			
+//		for(TexturedPhysicsGameEntity tp:texturedPhysicsEntities){
+//			
+//		}
+		for(Trigger tr:triggers){
+			tr.update(Main.p);
 		}
 		//updateBackground();
 	}
@@ -92,6 +96,9 @@ public class World {
 		}
 		for(AnimatedPhysicsGameEntity ap:animatedPhysicsEntities){
 			ap.render();
+		}
+		for(Trigger tr:triggers){
+			tr.render();
 		}
 		ground.render();
 	}
@@ -158,6 +165,10 @@ public class World {
 						new Vector2f(Float.parseFloat(object[12]), Float.parseFloat(object[13])),
 						Float.parseFloat(object[14])));
 				break;
+			case "trigger":
+				triggers.add(new Trigger(new Vector2f(Integer.parseInt(object[1]),Integer.parseInt(object[2])),
+						new Vector2f(Integer.parseInt(object[3]), Integer.parseInt(object[4])),
+						"world"+worldNumber+"/"+object[6]));
 			default:
 				System.out.println("Error reading file");
 				break;

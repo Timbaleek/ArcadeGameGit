@@ -6,7 +6,8 @@ import org.newdawn.slick.Color;
 
 public class AnimatedGameEntity extends TexturedGameEntity{
 
-	private int state, stateCount;
+	protected int state;
+	protected int stateCount;
 	private float coordDivision,secPerState;
 	private long lastTime;
 	

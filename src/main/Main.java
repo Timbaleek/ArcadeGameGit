@@ -61,14 +61,16 @@ public class Main {
 		for(int i = 0; i<numOfWorlds; i++){
 			worlds[i] = new World(i);
 		}
-		p = new PlayerGameEntity(new Vector2f(screenWidth/2-50, 500), new Vector2f(400,400), "player", 0, 1, 0.1f,new Vector2f(0,0), new Vector2f(0,0.03f), 1, 5, 0.5f);//0.5f);
+		p = new PlayerGameEntity(new Vector2f(screenWidth/2, 300), new Vector2f(300,300), "slimejump", 0, 14, 0.05f,new Vector2f(0,0), new Vector2f(0,0.03f), 1, 5, 0.5f);//0.5f);
 		xCor = (screenWidth/2)-(p.getSize().x/2);
 	}
 	
 	private static void update() {
 		p.updateInput();
 		//System.out.println(p.isWalking);
-		p.updateState(p.isWalking);
+		//p.updateState(Direction.RIGHT);
+		
+			
 		
 		worlds[currentWorld].update();
 		

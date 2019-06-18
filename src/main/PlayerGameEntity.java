@@ -12,6 +12,7 @@ public class PlayerGameEntity extends AnimatedPhysicsGameEntity{
 	float jumpForce;
 	private long cooldownTime;
 	float jumpCountdown,canStilJumpTime;
+	boolean jumpingAnim = false;
 
 	public PlayerGameEntity(Vector2f pos, Vector2f size, String path, int state, int stateCount,
 			float secPerState, Vector2f vel, Vector2f acc, float friction, float jumpForce, float jumpCountdown) {
@@ -21,20 +22,35 @@ public class PlayerGameEntity extends AnimatedPhysicsGameEntity{
 	}
 
 	public void updateInput(){
-//		if ((Keyboard.isKeyDown(Keyboard.KEY_W)||Keyboard.isKeyDown(Keyboard.KEY_SPACE))&&grounded) {
-//			vel.setY(-jumpForce);
-//			canJump = false;
-//		}
-//		if (Keyboard.isKeyDown(Keyboard.KEY_A)){
-//			Vector2f.add(vel,new Vector2f(-0.01f,0),vel);
-//			isWalking = Direction.LEFT;
-//		} else if (Keyboard.isKeyDown(Keyboard.KEY_D)){
-//			Vector2f.add(vel,new Vector2f(0.01f,0),vel);
-//			isWalking = Direction.RIGHT;
-//		} //else {
-//			isWalking = Direction.NONE;
-//		}
-		String cs = ArduinoCommunication.currentInput;
+		if ((Keyboard.isKeyDown(Keyboard.KEY_W)||Keyboard.isKeyDown(Keyboard.KEY_SPACE))&&grounded) {
+			vel.setY(-jumpForce);
+			canJump = false;
+			jumpingAnim = true;
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_A)){
+			Vector2f.add(vel,new Vector2f(-0.01f,0),vel);
+			isWalking = Direction.LEFT;
+		} else if (Keyboard.isKeyDown(Keyboard.KEY_D)){
+			Vector2f.add(vel,new Vector2f(0.01f,0),vel);
+			isWalking = Direction.RIGHT;
+		} //else {
+		//isWalking = Direction.NONE;
+		//		}
+		if ((Keyboard.isKeyDown(Keyboard.KEY_W)||Keyboard.isKeyDown(Keyboard.KEY_SPACE))&&grounded) {
+			vel.setY(-jumpForce);
+			canJump = false;
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_A)){
+			Vector2f.add(vel,new Vector2f(-0.01f,0),vel);
+			isWalking = Direction.LEFT;
+		} else if (Keyboard.isKeyDown(Keyboard.KEY_D)){
+			Vector2f.add(vel,new Vector2f(0.01f,0),vel);
+			isWalking = Direction.RIGHT;
+		} else {
+			isWalking = Direction.NONE;
+		}
+		
+		/*String cs = ArduinoCommunication.currentInput;
 		//System.out.println(cs);
 		//System.out.println(Character.getNumericValue(cs.charAt(0)));
 		if(Character.getNumericValue(cs.charAt(0)) == 1){
@@ -51,20 +67,8 @@ public class PlayerGameEntity extends AnimatedPhysicsGameEntity{
 			System.out.println("JUMP");
 			vel.setY(-jumpForce);
 			canJump = false;
-		}
-//		if ((Keyboard.isKeyDown(Keyboard.KEY_W)||Keyboard.isKeyDown(Keyboard.KEY_SPACE))&&grounded) {
-//			vel.setY(-jumpForce);
-//			canJump = false;
-//		}
-//		if (Keyboard.isKeyDown(Keyboard.KEY_A)){
-//			Vector2f.add(vel,new Vector2f(-0.01f,0),vel);
-//			isWalking = Direction.LEFT;
-//		} else if (Keyboard.isKeyDown(Keyboard.KEY_D)){
-//			Vector2f.add(vel,new Vector2f(0.01f,0),vel);
-//			isWalking = Direction.RIGHT;
-//		} else {
-//			isWalking = Direction.NONE;
-//		}
+		}*/
+//		
 	}
 
 	public void update(){
@@ -74,6 +78,12 @@ public class PlayerGameEntity extends AnimatedPhysicsGameEntity{
 		else if(Main.getTime() - cooldownTime >= jumpCountdown){
 			canJump = true;
 			cooldownTime = Main.getTime();
+		}
+		if(jumpingAnim){
+			updateState(Direction.RIGHT);
+		}
+		if(state==stateCount-1){
+			jumpingAnim = false;
 		}
 	}
 }
