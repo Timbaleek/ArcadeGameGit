@@ -22,7 +22,7 @@ public class PlayerGameEntity extends AnimatedPhysicsGameEntity{
 	}
 
 	public void updateInput(){
-		if ((Keyboard.isKeyDown(Keyboard.KEY_W)||Keyboard.isKeyDown(Keyboard.KEY_SPACE))&&grounded) {
+		/*if ((Keyboard.isKeyDown(Keyboard.KEY_W)||Keyboard.isKeyDown(Keyboard.KEY_SPACE))&&grounded) {
 			vel.setY(-jumpForce);
 			canJump = false;
 			jumpingAnim = true;
@@ -48,17 +48,17 @@ public class PlayerGameEntity extends AnimatedPhysicsGameEntity{
 			isWalking = Direction.RIGHT;
 		} else {
 			isWalking = Direction.NONE;
-		}
+		}*/
 		
-		/*String cs = ArduinoCommunication.currentInput;
+		String cs = ArduinoCommunication.currentInput;
 		//System.out.println(cs);
 		//System.out.println(Character.getNumericValue(cs.charAt(0)));
-		if(Character.getNumericValue(cs.charAt(0)) == 1){
+		if(Character.getNumericValue(cs.charAt(1)) == 1){
 			System.out.println("Walk LEFT");
 			Vector2f.add(vel,new Vector2f(-0.01f,0),vel);
 			isWalking = Direction.LEFT;
 		} 
-		if (Character.getNumericValue(cs.charAt(1)) == 1){
+		if (Character.getNumericValue(cs.charAt(0)) == 1){
 			System.out.println("Walk RIGHT");
 			Vector2f.add(vel,new Vector2f(0.01f,0),vel);
 			isWalking = Direction.RIGHT;
@@ -67,7 +67,8 @@ public class PlayerGameEntity extends AnimatedPhysicsGameEntity{
 			System.out.println("JUMP");
 			vel.setY(-jumpForce);
 			canJump = false;
-		}*/
+			jumpingAnim = true;
+		}
 //		
 	}
 

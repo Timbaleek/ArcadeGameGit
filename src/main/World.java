@@ -124,7 +124,7 @@ public class World {
 //				texturedPhysicsEntities = new TexturedPhysicsGameEntity[Integer.parseInt(object[3])];
 //				animatedPhysicsEntities = new AnimatedPhysicsGameEntity[Integer.parseInt(object[4])];
 				ground = new Line(new Vector2f(0,0),new Vector2f(levelWidth, Main.screenHeight));
-				background = new TexturedGameEntity(new Vector2f(0,0), new Vector2f(levelWidth, Main.screenHeight*2), "world"+worldNumber+"/background");///background");
+				background = new TexturedGameEntity(new Vector2f(0,-200), new Vector2f(levelWidth, Main.screenHeight*2), "world"+worldNumber+"/background");///background");
 //				for(int i = 0; i < background.length; i++){
 //					if(i < 4){
 //						background[i] = new TexturedGameEntity(new Vector2f(i*(Main.screenWidth/4),0), new Vector2f(Main.screenHeight/2, Main.screenHeight/2), "anim");

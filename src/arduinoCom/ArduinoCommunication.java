@@ -8,6 +8,7 @@ import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener; 
 import java.util.Enumeration;
 
+/* THIS CODE IS MOSTLY COPIED FROM ARDUINO.CC AND STACKOVERFLOW */
 
 public class ArduinoCommunication implements SerialPortEventListener {
 	SerialPort serialPort;
